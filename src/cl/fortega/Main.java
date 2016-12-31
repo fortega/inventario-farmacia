@@ -5,6 +5,8 @@
  */
 package cl.fortega;
 
+import java.sql.*;
+
 /**
  *
  * @author felipeortegabustamante
@@ -14,8 +16,11 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Connection c = DriverManager.getConnection("jdbc:derby:/derby/inventario");
+        Statement stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery("select count(*) from item");
     }
     
 }

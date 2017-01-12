@@ -5,9 +5,11 @@
  */
 package cl.fortega;
 
-import cl.fortega.view.ConfigFrame;
-import java.io.FileInputStream;
+import cl.fortega.view.MainView;
 import java.io.IOException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,22 +21,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            FileInputStream fis = new FileInputStream("config.xml");
-            Utils.Properties.loadFromXML(fis);
-        } catch (IOException ex) {
-            ConfigFrame config = new ConfigFrame();
-            config.setVisible(true);
-        }
+        Utils.createTables();
         
-               
-        
-//        Query query = em.createNamedQuery("Item.findAll");
-//        List<Item> list = query.getResultList();
-//        for(int i = 0 ; i < list.size(); i++){
-//            System.out.println(list.get(i).getNombre());
-//        }
-//        System.out.println(list.size());
+        MainView main = new MainView();
+        main.setVisible(true);
     }
     
 }

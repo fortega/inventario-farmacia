@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/felipe/Documents/NetBeansProjects/InventarioFarmacia/src/cl/fortega/Utils.java</file>
-            <file>file:/C:/Users/felipe/Documents/NetBeansProjects/InventarioFarmacia/src/cl/fortega/view/BaseForm.java</file>
-            <file>file:/C:/Users/felipe/Documents/NetBeansProjects/InventarioFarmacia/src/cl/fortega/Main.java</file>
-            <file>file:/C:/Users/felipe/Documents/NetBeansProjects/InventarioFarmacia/src/cl/fortega/controller/config/OK.java</file>
-            <file>file:/C:/Users/felipe/Documents/NetBeansProjects/InventarioFarmacia/src/META-INF/persistence.xml</file>
+            <file>file:/Users/felipeortegabustamante/NetBeansProjects/InventarioFarmacia/src/META-INF/persistence.xml</file>
+            <file>file:/Users/felipeortegabustamante/NetBeansProjects/InventarioFarmacia/src/cl/fortega/Main.java</file>
+            <file>file:/Users/felipeortegabustamante/NetBeansProjects/InventarioFarmacia/src/cl/fortega/model/DB.java</file>
+            <file>file:/Users/felipeortegabustamante/NetBeansProjects/InventarioFarmacia/src/cl/fortega/model/Movimiento.java</file>
         </group>
     </open-files>
 </project-private>

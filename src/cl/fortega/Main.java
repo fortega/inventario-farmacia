@@ -5,11 +5,14 @@
  */
 package cl.fortega;
 
+import cl.fortega.model.DB;
+import cl.fortega.model.Item;
 import cl.fortega.view.MainView;
-import java.io.IOException;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 /**
  *
@@ -20,11 +23,28 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
+//        Connection c = Utils.getConnection();
+//        Statement stmt = c.createStatement();
+//        ResultSet rs = stmt.executeQuery("SELECT * FROM item");
+//        while(rs.next()){
+//            System.out.print(rs.getInt("ID"));
+//            System.out.print(rs.getString("Nombre"));
+//            System.out.println(rs.getShort("Nulo"));
+//        }
+//
+//        DB db = new DB();
+//        List<Item> items = db.getItemAll();
+//        for(Item item : items){
+//            item.setNulo((short)1);
+//            db.saveItem(item);
+//            System.out.println(item.getNulo());
+//        }
         Utils.createTables();
         
         MainView main = new MainView();
         main.setVisible(true);
+
     }
     
 }

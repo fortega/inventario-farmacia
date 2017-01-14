@@ -7,17 +7,16 @@ package cl.fortega.view;
 
 import cl.fortega.controller.ItemsController;
 import cl.fortega.model.DB;
+import cl.fortega.model.Item;
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -30,14 +29,9 @@ public class ItemsView extends BaseView {
     public ItemsView(Frame owner) {
         super(owner);
         
-        setTitle("Adminitrador de Items");
+        setTitle("Administrador de Items");
         setSize(500,500);
         
-        tabla = new JTable();
-        JScrollPane scrollTabla = new JScrollPane(tabla);
-        add(scrollTabla, BorderLayout.PAGE_START);
-        
-        setTabla();
         
         panelBotones = new JPanel(new GridLayout(1, 3));
         
@@ -46,6 +40,9 @@ public class ItemsView extends BaseView {
         panelBotones.add(btnCrear);
         
         btnDesactivar = new JButton("Desactivar");
+        btnDesactivar.addActionListener(l ->
+                ItemsController.btnDesactivar_click(this, l, getSelectedItem().getId()));
+        btnDesactivar.setEnabled(false);
         panelBotones.add(btnDesactivar);
         
         btnEditar = new JButton("Editar");
@@ -54,15 +51,49 @@ public class ItemsView extends BaseView {
         add(panelBotones, BorderLayout.PAGE_END);
         
         
+        tabla = new JTable();
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.getSelectionModel().addListSelectionListener(lse -> cambioSeleccion(lse));
+        JScrollPane scrollTabla = new JScrollPane(tabla);
+        add(scrollTabla, BorderLayout.PAGE_START);
+        
+        setTabla();
     }
     
-    private void setTabla(){
+    public void setTabla(){
         DB db = new DB();
         TableModelItems tableModel = new TableModelItems(db.getItemAll());
+        
         tabla.setModel(tableModel);
+        if(tableModel.getRowCount() > 0)
+            tabla.setRowSelectionInterval(0, 0);
         tabla.invalidate();
     }
     
+    private Item getSelectedItem(){
+        if(tabla.getSelectedRow() >= 0 && tabla.getRowCount() > 0){
+            TableModelItems model = (TableModelItems)tabla.getModel();
+            return model.get(tabla.getSelectedRow());
+        }
+        return null;
+    }
     
+    private void cambioSeleccion(ListSelectionEvent lse){
+        Item i = getSelectedItem();
+        if(i != null){
+            
+            if(i.getNulo() != null){
+                if(i.getNulo() == 1)
+                    btnDesactivar.setText("Activar");
+                btnDesactivar.setText("Desactivar");
+                btnDesactivar.setEnabled(true);
+                btnDesactivar.invalidate();
+                return;
+            }
+        }
+        btnDesactivar.setText("-");
+        btnDesactivar.setEnabled(false);
+        btnDesactivar.invalidate();
+    }
     
 }

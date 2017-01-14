@@ -34,6 +34,19 @@ public class DB {
             return false;
         }
     }
+    
+    public void saveItem(Item i){
+        em.getTransaction().begin();
+        em.merge(i);
+        em.getTransaction().commit();
+    }
+    
+    public Item getItem(int id){
+        Query query = em.createNamedQuery("Item.findById");
+        query.setParameter("id", id);
+        
+        return (Item)query.getSingleResult();
+    }
  
     
     public List<Item> getItemAll(){

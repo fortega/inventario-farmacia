@@ -71,10 +71,14 @@ public class TableModelItems implements TableModel{
             case 1:
                 return data.get(rowIndex).getNombre();
             case 2:
-                return data.get(rowIndex).getNulo();
+                return data.get(rowIndex).getNulo() == 1;
             default:
                 return null;
         }
+    }
+    
+    public Item get(int row){
+        return data.get(row);
     }
 
     @Override

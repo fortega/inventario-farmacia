@@ -1,7 +1,7 @@
 create table item (
 id integer not null generated always as identity (start with 1, increment by 1),
 nombre varchar(64) not null,
-nulo smallint default 0,
+nulo smallint default 0 not null,
 primary key(id),
 unique(nombre)
 );
@@ -10,7 +10,7 @@ create table caja (
     id integer not null generated always as identity (start with 1, increment by 1),
     item integer not null,
     cantidad integer not null,
-    nulo smallint default 0,
+    nulo smallint default 0 not null,
     primary key(id),
     unique (item,cantidad),
     check (cantidad >= 0),
@@ -22,7 +22,7 @@ create table movimiento (
     caja integer not null,
     hora timestamp not null,
     cantidad integer not null,
-    nulo smallint default 0,
+    nulo smallint default 0 not null,
     check( cantidad <> 0),
     primary key(id),
     constraint fk_movimiento_caja foreign key (caja) references caja(id)

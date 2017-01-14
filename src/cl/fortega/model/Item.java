@@ -43,6 +43,7 @@ public class Item implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    @Basic(optional = false)
     @Column(name = "NULO")
     private Short nulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")

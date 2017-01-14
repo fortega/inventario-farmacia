@@ -5,9 +5,10 @@
  */
 package cl.fortega.model;
 
+import cl.fortega.Utils;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -17,9 +18,23 @@ import javax.persistence.Query;
 public class DB {
     private final EntityManager em;
     
-    public DB(String unitName){
-        this.em = Persistence.createEntityManagerFactory(unitName).createEntityManager();
+    public DB(){
+        this.em = Utils.getEntityManager();
     }
+    
+    public boolean createItem(Item i){
+        try{
+            em.getTransaction().begin();
+            em.persist(i);
+            em.getTransaction().commit();
+            
+            return true;
+        }catch(EntityExistsException e){
+            em.getTransaction().rollback();
+            return false;
+        }
+    }
+ 
     
     public List<Item> getItemAll(){
         Query query = em.createNamedQuery("Item.findAll");

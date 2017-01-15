@@ -47,6 +47,18 @@ public class DB {
         
         return (Item)query.getSingleResult();
     }
+    
+    public boolean deleteItem(Item i){
+        try{
+            em.getTransaction().begin();
+            em.remove(i);
+            em.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            return false;
+        }
+    }
  
     
     public List<Item> getItemAll(){

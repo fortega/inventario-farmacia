@@ -34,4 +34,12 @@ public class ItemCrearController {
         else
             owner.setVisible(false);
     }
+    
+    public static void btnAgregar_click(Dialog owner, ActionEvent ae){
+        //TODO
+    }
+    
+    public static void btnQuitar_click(Dialog owner, ActionEvent ae){
+        //TODO
+    }
 }

@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
-    , @NamedQuery(name = "Item.findActive", query = "SELECT i FROM Item i WHERE i.nulo = 0")
     , @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id")})
 public class Item implements Serializable {
 
@@ -43,9 +42,6 @@ public class Item implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @Basic(optional = false)
-    @Column(name = "NULO")
-    private Short nulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     private Collection<Caja> cajaCollection;
 
@@ -75,14 +71,6 @@ public class Item implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Short getNulo() {
-        return nulo;
-    }
-
-    public void setNulo(Short nulo) {
-        this.nulo = nulo;
     }
 
     @XmlTransient

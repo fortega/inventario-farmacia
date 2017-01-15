@@ -46,8 +46,6 @@ public class Caja implements Serializable {
     @Basic(optional = false)
     @Column(name = "CANTIDAD")
     private int cantidad;
-    @Column(name = "NULO")
-    private Short nulo;
     @JoinColumn(name = "ITEM", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Item item;
@@ -80,14 +78,6 @@ public class Caja implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public Short getNulo() {
-        return nulo;
-    }
-
-    public void setNulo(Short nulo) {
-        this.nulo = nulo;
     }
 
     public Item getItem() {

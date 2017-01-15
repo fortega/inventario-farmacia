@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author felipeortegabustamante
  */
 public class ItemsView extends BaseView {
-    JButton btnCrear, btnDesactivar, btnEditar;
+    JButton btnCrear, btnEliminar, btnEditar;
     JTable tabla;
     JPanel panelBotones;
     public ItemsView(Frame owner) {
@@ -39,11 +39,11 @@ public class ItemsView extends BaseView {
         btnCrear.addActionListener(l -> ItemsController.btnCrear_click(this, l));
         panelBotones.add(btnCrear);
         
-        btnDesactivar = new JButton("Desactivar");
-        btnDesactivar.addActionListener(l ->
-                ItemsController.btnDesactivar_click(this, l, getSelectedItem().getId()));
-        btnDesactivar.setEnabled(false);
-        panelBotones.add(btnDesactivar);
+        btnEliminar = new JButton("Desactivar");
+        btnEliminar.addActionListener(l ->
+                ItemsController.btnEliminar_click(this, l, getSelectedItem().getId()));
+        btnEliminar.setEnabled(false);
+        panelBotones.add(btnEliminar);
         
         btnEditar = new JButton("Editar");
         panelBotones.add(btnEditar);
@@ -81,19 +81,18 @@ public class ItemsView extends BaseView {
     private void cambioSeleccion(ListSelectionEvent lse){
         Item i = getSelectedItem();
         if(i != null){
+            //TODO
             
-            if(i.getNulo() != null){
-                if(i.getNulo() == 1)
-                    btnDesactivar.setText("Activar");
-                btnDesactivar.setText("Desactivar");
-                btnDesactivar.setEnabled(true);
-                btnDesactivar.invalidate();
-                return;
-            }
+//            if(i.getNulo() != null){
+//                if(i.getNulo() == 1)
+//                    btnDesactivar.setText("Activar");
+//                btnDesactivar.setText("Desactivar");
+//                btnDesactivar.setEnabled(true);
+//                return;
+//            }
         }
-        btnDesactivar.setText("-");
-        btnDesactivar.setEnabled(false);
-        btnDesactivar.invalidate();
+        btnEliminar.setText("-");
+        btnEliminar.setEnabled(false);
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package cl.fortega.view;
 
-import cl.fortega.model.Item;
+import cl.fortega.model.Caja;
 import java.util.List;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -14,9 +14,9 @@ import javax.swing.table.TableModel;
  *
  * @author felipeortegabustamante
  */
-public class TableModelItems implements TableModel{
-    List<Item> data;
-    public TableModelItems(List<Item> data){
+public class TableModelCajas implements TableModel {
+    List<Caja> data;
+    public TableModelCajas(List<Caja> data){
         this.data = data;
     }
 
@@ -27,33 +27,17 @@ public class TableModelItems implements TableModel{
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 1;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        switch(columnIndex){
-            case 0:
-                return "ID";
-            case 1:
-                return "Nombre";
-            default:
-                return null;
-        }
+        return columnIndex == 0 ? "Cantidad" : null;
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch(columnIndex){
-            case 0:
-                return int.class;
-            case 1:
-                return String.class;
-            case 2:
-                return boolean.class;
-            default:
-                return null;
-        }
+        return int.class;
     }
 
     @Override
@@ -63,18 +47,11 @@ public class TableModelItems implements TableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(columnIndex){
-            case 0:
-                return data.get(rowIndex).getId();
-            case 1:
-                return data.get(rowIndex).getNombre();
-            default:
-                return null;
-        }
+        return columnIndex == 0 ? data.get(rowIndex).getCantidad() : -1;
     }
     
-    public Item get(int row){
-        return data.get(row);
+    public Caja get(int rowIndex){
+        return data.get(rowIndex);
     }
 
     @Override

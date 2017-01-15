@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
  */
 public class ItemsController {
     public static void btnCrear_click(Dialog owner, ActionEvent ae){
-        ItemCrearView form = new ItemCrearView(owner);
+        ItemCrearView form = new ItemCrearView(owner, null);
         form.setVisible(true);
     }
     
-    public static void btnDesactivar_click(Dialog sender, ActionEvent ae, int id){
+    public static void btnEliminar_click(Dialog sender, ActionEvent ae, int id){
         DB db = new DB();
         Item i = db.getItem(id);
         
@@ -36,8 +36,6 @@ public class ItemsController {
                 JOptionPane.QUESTION_MESSAGE);
         
         if(result == JOptionPane.YES_OPTION){
-            i.setNulo(i.getNulo() == (short)0 ? (short)1 : (short)0);
-            db.saveItem(i);
             
             iv.setTabla();
         }

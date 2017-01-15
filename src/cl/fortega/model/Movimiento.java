@@ -31,11 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")
-    , @NamedQuery(name = "Movimento.findActive", query = "SELECT m FROM Movimiento m WHERE m.nulo = 0")
     , @NamedQuery(name = "Movimiento.findById", query = "SELECT m FROM Movimiento m WHERE m.id = :id")
-    , @NamedQuery(name = "Movimiento.findByHora", query = "SELECT m FROM Movimiento m WHERE m.hora = :hora")
-    , @NamedQuery(name = "Movimiento.findByCantidad", query = "SELECT m FROM Movimiento m WHERE m.cantidad = :cantidad")
-    , @NamedQuery(name = "Movimiento.findByNulo", query = "SELECT m FROM Movimiento m WHERE m.nulo = :nulo")})
+    , @NamedQuery(name = "Movimiento.findByItem", query = "SELECT m FROM Movimiento m WHERE m.caja in (select id FROM Caja WHERE item = :item)")})
 public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,8 +48,6 @@ public class Movimiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "CANTIDAD")
     private int cantidad;
-    @Column(name = "NULO")
-    private Short nulo;
     @JoinColumn(name = "CAJA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Caja caja;
@@ -92,14 +87,6 @@ public class Movimiento implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public Short getNulo() {
-        return nulo;
-    }
-
-    public void setNulo(Short nulo) {
-        this.nulo = nulo;
     }
 
     public Caja getCaja() {

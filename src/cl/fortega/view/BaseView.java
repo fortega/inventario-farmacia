@@ -29,6 +29,7 @@ public class BaseView extends JDialog{
     }
     
     private void setDefaults(){
+        setModalityType(ModalityType.DOCUMENT_MODAL);
         setLayout(new BorderLayout(hgap, vgap));
         setSize(width, height);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

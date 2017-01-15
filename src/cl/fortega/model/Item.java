@@ -104,7 +104,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.fortega.model.Item[ id=" + id + " ]";
+        return nombre;
     }
     
 }

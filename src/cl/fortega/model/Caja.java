@@ -119,7 +119,7 @@ public class Caja implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.fortega.model.Caja[ id=" + id + " ]";
+        return String.valueOf(cantidad);
     }
     
 }

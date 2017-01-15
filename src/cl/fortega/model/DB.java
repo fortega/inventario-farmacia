@@ -102,6 +102,13 @@ public class DB {
         }
     }
     
+    public Caja getCaja(int id){
+        Query query = em.createNamedQuery("Caja.findById");
+        query.setParameter("id", id);
+        
+        return (Caja)query.getSingleResult();
+    }
+    
     public Caja getCajaItemCantidad(int itemId, int cantidad){
         Query query = em.createNamedQuery("Caja.findByItemCantidad");
         query.setParameter("cantidad", cantidad);
@@ -123,6 +130,12 @@ public class DB {
         Query query = em.createNamedQuery("Caja.findAll");
         
         return query.getResultList();
+    }
+    
+    public void createMovimiento(Movimiento m){
+        em.getTransaction().begin();
+        em.persist(m);
+        em.getTransaction().commit();
     }
     
     public List<Movimiento> getMovimientoAll(){

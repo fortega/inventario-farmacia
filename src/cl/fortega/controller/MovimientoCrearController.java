@@ -20,12 +20,14 @@ public class MovimientoCrearController {
     public static boolean btnCrear_click(Dialog owner, boolean ingreso, int cajaId, String txtCantidad){
         if(txtCantidad.matches("^[0-9]{1,9}$")){
             int cantidad = Integer.parseInt(txtCantidad);
+            if(!ingreso)
+                cantidad *= -1;
             
             DB db = new DB();
             Caja caja = db.getCaja(cajaId);
             Movimiento movimiento = new Movimiento();
             movimiento.setCaja(caja);
-            movimiento.setCantidad((ingreso ? 1 : -1)*cantidad);
+            movimiento.setCantidad(cantidad);
             movimiento.setHora(new Date());
             
             db.createMovimiento(movimiento);

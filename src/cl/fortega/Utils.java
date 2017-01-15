@@ -45,7 +45,9 @@ public class Utils {
                 for(String sql : sqls){
                     try{
                         stmt.execute(sql);
+                        System.out.println(sql);
                     }catch(SQLException ex){
+                        System.out.println(ex.getMessage());
                         r = false;
                     }
                 }

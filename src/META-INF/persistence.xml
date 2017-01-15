@@ -5,6 +5,7 @@
     <class>cl.fortega.model.Caja</class>
     <class>cl.fortega.model.Movimiento</class>
     <class>cl.fortega.model.Item</class>
+    <class>cl.fortega.model.Stock</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:db;create=true"/>
       <property name="javax.persistence.jdbc.user" value=""/>

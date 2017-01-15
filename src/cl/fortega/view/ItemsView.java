@@ -32,7 +32,6 @@ public class ItemsView extends BaseView {
         setTitle("Administrador de Items");
         setSize(500,500);
         
-        
         panelBotones = new JPanel(new GridLayout(1, 3));
         
         btnCrear = new JButton("Crear");

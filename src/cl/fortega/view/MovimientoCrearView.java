@@ -29,28 +29,39 @@ public class MovimientoCrearView extends BaseView {
     JComboBox cbItems, cbCajas;
     JButton btnCrear;
     JTextField txtCantidad;
-    JLabel lblCantidad;
+    JLabel lblCantidad, lblItem, lblCaja;
     
     
     public MovimientoCrearView(Frame owner, boolean ingreso) {
         super(owner);
         
+        setTitle((ingreso ? "Ingreso" : "salida") + " mercaderia");
+        
         this.ingreso = ingreso;
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel;
+        
+        panel = new JPanel(new FlowLayout());
+        lblItem = new JLabel("Item:");
+        panel.add(lblItem);
         cbItems = new JComboBox();
         cbItems.addActionListener(ae -> setCajas());
+        lblItem.setLabelFor(cbItems);
         panel.add(cbItems);
+        add(panel);
         
-        this.cbCajas = new JComboBox();
+        panel = new JPanel(new FlowLayout());
+        lblCaja = new JLabel("Caja:");
+        panel.add(lblCaja);
+        cbCajas = new JComboBox();
+        lblCaja.setLabelFor(cbCajas);
         panel.add(cbCajas);
         add(panel);
         
         panel = new JPanel(new FlowLayout());
         lblCantidad = new JLabel("Cantidad:");
         panel.add(lblCantidad);
-        
         txtCantidad = new JTextField(8);
         lblCantidad.setLabelFor(txtCantidad);
         panel.add(txtCantidad);
@@ -84,10 +95,8 @@ public class MovimientoCrearView extends BaseView {
     
     private void setCajas(){
         Item item = getSelectedItem();
-        List<Caja> cajas = new ArrayList<>();
-        for(Caja caja : item.getCajaCollection())
-            cajas.add(caja);
-        
+        DB db = new DB();
+        List<Caja> cajas = db.getCajaItemId(item.getId());
         cbCajas.setModel(new ComboBoxModelBase<Caja>(cajas));
     }
     

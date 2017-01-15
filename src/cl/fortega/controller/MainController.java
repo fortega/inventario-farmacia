@@ -7,6 +7,8 @@ package cl.fortega.controller;
 
 import cl.fortega.view.ItemsView;
 import cl.fortega.view.MovimientoCrearView;
+import cl.fortega.view.MovimientoView;
+import cl.fortega.view.StockView;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
@@ -31,10 +33,12 @@ public class MainController {
     }
     
     public static void btnStock_click(Frame owner, ActionEvent ae){
-        
+        StockView form = new StockView(owner);
+        form.setVisible(true);
     }
     
     public static void btnMovimiento_click(Frame owner, ActionEvent ae){
-        
+        MovimientoView form = new MovimientoView(owner);
+        form.setVisible(true);
     }
 }

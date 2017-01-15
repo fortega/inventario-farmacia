@@ -22,7 +22,9 @@ public class DB {
     public DB(){
         this.em = Utils.getEntityManager();
     }
-    
+    private void evictAll(){
+        em.getEntityManagerFactory().getCache().evictAll();
+    }
     public boolean createItem(Item i){
         try{
             em.getTransaction().begin();
@@ -33,6 +35,8 @@ public class DB {
         }catch(EntityExistsException e){
             em.getTransaction().rollback();
             return false;
+        }finally{
+            evictAll();
         }
     }
     
@@ -44,6 +48,8 @@ public class DB {
             return true;
         }catch(RollbackException e){
             return false;
+        }finally{
+            evictAll();
         }
     }
     
@@ -63,18 +69,14 @@ public class DB {
         }catch(Exception e){
             em.getTransaction().rollback();
             return false;
+        }finally{
+            evictAll();
         }
     }
  
     
     public List<Item> getItemAll(){
         Query query = em.createNamedQuery("Item.findAll");
-        
-        return query.getResultList();
-    }
-    
-    public List<Item> getItemActive(){
-        Query query = em.createNamedQuery("Item.findActive");
         
         return query.getResultList();
     }
@@ -87,6 +89,8 @@ public class DB {
             return true;
         }catch(EntityExistsException | RollbackException e){
             return false;
+        }finally{
+            evictAll();
         }
     }
     
@@ -99,6 +103,8 @@ public class DB {
         }catch(EntityExistsException | RollbackException e){
             em.getTransaction().rollback();
             return false;
+        }finally{
+            evictAll();
         }
     }
     
@@ -132,10 +138,25 @@ public class DB {
         return query.getResultList();
     }
     
-    public void createMovimiento(Movimiento m){
-        em.getTransaction().begin();
-        em.persist(m);
-        em.getTransaction().commit();
+    public boolean createMovimiento(Movimiento m){
+        try{
+            em.getTransaction().begin();
+            em.persist(m);
+            em.getTransaction().commit();
+            
+            return true;
+        }catch(EntityExistsException | RollbackException e){
+            return false;
+        }finally{
+            evictAll();
+        }
+    }
+    
+    public List<Movimiento> getMovimientos(int itemId){
+        Query query = em.createNamedQuery("Movimiento.findByItem");
+        query.setParameter("id", itemId);
+        
+        return query.getResultList();
     }
     
     public List<Movimiento> getMovimientoAll(){
@@ -144,8 +165,9 @@ public class DB {
         return query.getResultList();
     }
     
-    public List<Movimiento> getMovimientoActive(){
-        Query query = em.createNamedQuery("Movimento.findActive");
+    
+    public List<Stock> getStockAll(){
+        Query query = em.createNamedQuery("Stock.findAll");
         
         return query.getResultList();
     }

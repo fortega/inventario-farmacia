@@ -26,13 +26,11 @@ create table movimiento (
     constraint fk_movimiento_caja foreign key (caja) references caja(id) on delete restrict
 );
 
-create view stock as
-select i.nombre as item,sum(c.cantidad*m.cantidad) as stock from item i
-left join caja c on c.item = i.id
-left join movimiento m on m.caja = c.id
-where i.nulo = 0 and c.nulo = 0 and m.nulo = 0
-group by i.nombre
-order by i.nombre;
+create view stock (id,nombre,cantidad) as
+select i.id,i.nombre item,sum(m.cantidad*c.cantidad) as cantidad from item i
+left join caja c on i.id = c.item
+left join movimiento m on c.id = m.caja
+group by i.id,i.nombre
 
 
 

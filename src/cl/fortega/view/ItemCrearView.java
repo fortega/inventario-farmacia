@@ -37,6 +37,8 @@ public class ItemCrearView extends BaseView {
     public ItemCrearView(Dialog owner, int id) {
         super(owner);
         
+        cajas = new ArrayList<>();
+        
         JPanel panel = new JPanel(new FlowLayout());
         
         lblNombre = new JLabel("Nombre:");
@@ -46,23 +48,12 @@ public class ItemCrearView extends BaseView {
         lblNombre.setLabelFor(txtNombre);
         panel.add(txtNombre);
         
-        if(id == -1){
-            setTitle("Crear Item");
-        }else{
-            setTitle("Edita Item");
-            
-            DB db = new DB();
-            i = db.getItem(id);
-            txtNombre.setText(i.getNombre());
-        }
-        
         JPanel panelCajasMain = new JPanel(new BorderLayout());
+        tblCajas = new JTable();
+        panelCajasMain.add(tblCajas, BorderLayout.CENTER);
         
         JLabel lblCajas  = new JLabel("Cajas:");
         panelCajasMain.add(lblCajas, BorderLayout.PAGE_START);
-        
-        tblCajas = new JTable();
-        panelCajasMain.add(tblCajas, BorderLayout.CENTER);
         
         JPanel panelCajasBotones = new JPanel(new FlowLayout());
         
@@ -77,7 +68,16 @@ public class ItemCrearView extends BaseView {
         panelCajasMain.add(panelCajasBotones, BorderLayout.PAGE_END);
         add(panelCajasMain, BorderLayout.CENTER);
         
-        setCajas();
+        if(id == -1){
+            setTitle("Crear Item");
+            agregaCaja(1);
+        }else{
+            setTitle("Edita Item");
+            
+            DB db = new DB();
+            i = db.getItem(id);
+            txtNombre.setText(i.getNombre());
+        }
         
         add(panel, BorderLayout.PAGE_START);
         
@@ -87,11 +87,10 @@ public class ItemCrearView extends BaseView {
                 this.setVisible(false);
         });
         add(btnCrear, BorderLayout.PAGE_END);
+        setCajas();
     }
     
     public void setCajas(){
-        if(cajas == null) cajas = new ArrayList<>();
-        
         if(i != null){
             cajas = new ArrayList<>();
             DB db = new DB();

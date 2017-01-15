@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 /**
  *
@@ -35,10 +36,15 @@ public class DB {
         }
     }
     
-    public void saveItem(Item i){
-        em.getTransaction().begin();
-        em.merge(i);
-        em.getTransaction().commit();
+    public boolean saveItem(Item i){
+        try{
+            em.getTransaction().begin();
+            em.merge(i);
+            em.getTransaction().commit();
+            return true;
+        }catch(RollbackException e){
+            return false;
+        }
     }
     
     public Item getItem(int id){
@@ -69,6 +75,46 @@ public class DB {
     
     public List<Item> getItemActive(){
         Query query = em.createNamedQuery("Item.findActive");
+        
+        return query.getResultList();
+    }
+    
+    public boolean createCaja(Caja c){
+        try{
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+            return true;
+        }catch(EntityExistsException | RollbackException e){
+            return false;
+        }
+    }
+    
+    public boolean deleteCaja(Caja c){
+        try{
+            em.getTransaction().begin();
+            em.remove(c);
+            em.getTransaction().commit();
+            return true;
+        }catch(EntityExistsException | RollbackException e){
+            em.getTransaction().rollback();
+            return false;
+        }
+    }
+    
+    public Caja getCajaItemCantidad(int itemId, int cantidad){
+        Query query = em.createNamedQuery("Caja.findByItemCantidad");
+        query.setParameter("cantidad", cantidad);
+        query.setParameter("item", itemId);
+        
+        System.out.println("ID:" + itemId + ",Cantidad: "+ cantidad);
+        
+        return (Caja)query.getSingleResult();
+    }
+    
+    public List<Caja> getCajaItemId(int itemId){
+        Query query = em.createNamedQuery("Caja.findByItemId");
+        query.setParameter("id", itemId);
         
         return query.getResultList();
     }

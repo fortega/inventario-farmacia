@@ -5,9 +5,6 @@ primary key(id),
 unique(nombre)
 );
 
-insert into item (nombre) values ('Atenolol 50mg');
-insert into item (nombre) values ('Cardioplus D 20/12.5');
-insert into item (nombre) values ('Glafornil XR 1000mg');
 
 create table caja (
     id integer not null generated always as identity (start with 1, increment by 1),
@@ -18,19 +15,6 @@ create table caja (
     check (cantidad >= 0),
     constraint fk_caja_item foreign key (item) references item(id) on delete cascade
 );
-
-insert into caja (item,cantidad) values (1,1);
-insert into caja (item,cantidad) values (1,25);
-insert into caja (item,cantidad) values (1,100);
-
-insert into caja (item,cantidad) values (2,1);
-insert into caja (item,cantidad) values (2,10);
-insert into caja (item,cantidad) values (2,25);
-
-insert into caja (item,cantidad) values (3,1);
-insert into caja (item,cantidad) values (3,15);
-insert into caja (item,cantidad) values (3,50);
-
 
 create table movimiento (
     id integer not null generated always as identity (start with 1, increment by 1),

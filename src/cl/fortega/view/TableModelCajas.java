@@ -5,7 +5,6 @@
  */
 package cl.fortega.view;
 
-import cl.fortega.model.Caja;
 import java.util.List;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -15,8 +14,8 @@ import javax.swing.table.TableModel;
  * @author felipeortegabustamante
  */
 public class TableModelCajas implements TableModel {
-    List<Caja> data;
-    public TableModelCajas(List<Caja> data){
+    List<Integer> data;
+    public TableModelCajas(List<Integer> data){
         this.data = data;
     }
 
@@ -47,10 +46,10 @@ public class TableModelCajas implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return columnIndex == 0 ? data.get(rowIndex).getCantidad() : -1;
+        return columnIndex == 0 ? data.get(rowIndex) : -1;
     }
     
-    public Caja get(int rowIndex){
+    public int get(int rowIndex){
         return data.get(rowIndex);
     }
 

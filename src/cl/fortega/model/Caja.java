@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Caja.findAll", query = "SELECT c FROM Caja c")
     , @NamedQuery(name = "Caja.findById", query = "SELECT c FROM Caja c WHERE c.id = :id")
-    , @NamedQuery(name = "Caja.findByCantidad", query = "SELECT c FROM Caja c WHERE c.cantidad = :cantidad")
-    , @NamedQuery(name = "Caja.findByNulo", query = "SELECT c FROM Caja c WHERE c.nulo = :nulo")})
+    , @NamedQuery(name = "Caja.findByItemId", query = "SELECT c FROM Caja c WHERE c.item.id = :id")
+    , @NamedQuery(name = "Caja.findByItemCantidad", query = "SELECT c FROM Caja c WHERE c.cantidad = :cantidad and c.item.id = :item")})
 public class Caja implements Serializable {
 
     private static final long serialVersionUID = 1L;

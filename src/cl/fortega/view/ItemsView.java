@@ -39,13 +39,12 @@ public class ItemsView extends BaseView {
         btnCrear.addActionListener(l -> ItemsController.btnCrear_click(this, l));
         panelBotones.add(btnCrear);
         
-        btnEliminar = new JButton("Desactivar");
-        btnEliminar.addActionListener(l ->
-                ItemsController.btnEliminar_click(this, l, getSelectedItem().getId()));
-        btnEliminar.setEnabled(false);
+        btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(l -> ItemsController.btnEliminar_click(this, l, getSelectedItem().getId()));
         panelBotones.add(btnEliminar);
         
         btnEditar = new JButton("Editar");
+        btnEditar.addActionListener(ae -> ItemsController.btnEditar_click(this, ae, getSelectedItem().getId()));
         panelBotones.add(btnEditar);
         
         add(panelBotones, BorderLayout.PAGE_END);
@@ -80,19 +79,8 @@ public class ItemsView extends BaseView {
     
     private void cambioSeleccion(ListSelectionEvent lse){
         Item i = getSelectedItem();
-        if(i != null){
-            //TODO
-            
-//            if(i.getNulo() != null){
-//                if(i.getNulo() == 1)
-//                    btnDesactivar.setText("Activar");
-//                btnDesactivar.setText("Desactivar");
-//                btnDesactivar.setEnabled(true);
-//                return;
-//            }
-        }
-        btnEliminar.setText("-");
-        btnEliminar.setEnabled(false);
+        btnEliminar.setEnabled(i != null);
+        btnEditar.setEnabled(i != null);
     }
     
 }

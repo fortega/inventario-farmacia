@@ -19,27 +19,44 @@ import javax.swing.JOptionPane;
  */
 public class ItemsController {
     public static void btnCrear_click(Dialog owner, ActionEvent ae){
-        ItemCrearView form = new ItemCrearView(owner, null);
+        ItemCrearView form = new ItemCrearView(owner);
+        form.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
         form.setVisible(true);
+        updateTabla(owner);
     }
     
-    public static void btnEliminar_click(Dialog sender, ActionEvent ae, int id){
+    private static void updateTabla(Dialog owner){
+        ItemsView iv = (ItemsView)owner;
+        iv.setTabla();
+    }
+    
+    public static void btnEliminar_click(Dialog owner, ActionEvent ae, int id){
         DB db = new DB();
         Item i = db.getItem(id);
         
-        ItemsView iv = (ItemsView)sender;
-        
         int result = 
-        JOptionPane.showConfirmDialog(sender, "Seguro",
-                "confirmacion",
+        JOptionPane.showConfirmDialog(owner, "Seguro desea borrar \"" + i.getNombre() + "\"?",
+                "Confirmar eliminacion",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         
         if(result == JOptionPane.YES_OPTION){
+            boolean resultado = db.deleteItem(i);
             
-            iv.setTabla();
+            if(!resultado){
+                JOptionPane.showConfirmDialog(owner,
+                        "Confirme que no tenga movimientos asociados", "No se pudo eliminar Item",
+                        JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+            }
+            updateTabla(owner);   
         }
-        
+    }
+    
+    public static void btnEditar_click(Dialog owner, ActionEvent ae, int id){
+        ItemCrearView form = new ItemCrearView(owner, id);
+        form.setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
+        form.setVisible(true);
+        updateTabla(owner);
     }
     
 }

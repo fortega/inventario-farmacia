@@ -5,14 +5,7 @@
  */
 package cl.fortega;
 
-import cl.fortega.model.DB;
-import cl.fortega.model.Item;
 import cl.fortega.view.MainView;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 
 /**
  *

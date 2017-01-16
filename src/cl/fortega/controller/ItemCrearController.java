@@ -22,6 +22,11 @@ public class ItemCrearController {
     public static boolean btnCrear_click(Dialog owner,ActionEvent ae, String nombre, int itemId, List<Integer> cantidades){
         nombre = nombre.trim();
         
+        if(nombre.length() > 64){
+            JOptionPane.showMessageDialog(owner, "El nombre no puede tener mas de 64 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
         boolean resultado = false;
         
         DB db = new DB();

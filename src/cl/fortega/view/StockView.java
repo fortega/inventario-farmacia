@@ -37,7 +37,7 @@ public class StockView extends BaseView {
         add(panel, BorderLayout.CENTER);
         
         btnDetalle = new JButton("Detalle movimientos");
-        btnDetalle.addActionListener(ae -> StockController.btnDetalle_click(this, ae, getSelectedItem().getId()));
+        btnDetalle.addActionListener(ae -> StockController.btnDetalle_click(this, ae, getSelectedItem().getCajaId()));
         add(btnDetalle, BorderLayout.PAGE_END);
         
         setStock();
@@ -50,7 +50,7 @@ public class StockView extends BaseView {
             table.setModel(new TableModelStock(stocks));
         else{
             JOptionPane.showMessageDialog(this, "No hay items. Favor crear primero", "Error", JOptionPane.ERROR_MESSAGE);
-            setVisible(false);
+            btnDetalle.setEnabled(false);
         }
     }
     

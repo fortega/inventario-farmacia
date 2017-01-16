@@ -11,6 +11,7 @@ import cl.fortega.model.Item;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,7 +52,7 @@ public class ItemsView extends BaseView {
         
         tabla = new JTable();
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabla.getSelectionModel().addListSelectionListener(lse -> cambioSeleccion(lse));
+//        tabla.getSelectionModel().addListSelectionListener(lse -> cambioSeleccion(lse));
         JScrollPane scrollTabla = new JScrollPane(tabla);
         add(scrollTabla, BorderLayout.PAGE_START);
         
@@ -60,12 +61,18 @@ public class ItemsView extends BaseView {
     
     public void setTabla(){
         DB db = new DB();
-        TableModelItems tableModel = new TableModelItems(db.getItemAll());
         
-        tabla.setModel(tableModel);
-        if(tableModel.getRowCount() > 0)
+        List<Item> items = db.getItemAll();
+        tabla.setModel(new TableModelItems(items));
+        
+        boolean hayItems = !items.isEmpty();
+        
+        if(hayItems)
             tabla.setRowSelectionInterval(0, 0);
-        tabla.invalidate();
+        
+        btnEditar.setEnabled(hayItems);
+        btnEliminar.setEnabled(hayItems);
+        
     }
     
     private Item getSelectedItem(){
@@ -75,11 +82,11 @@ public class ItemsView extends BaseView {
         }
         return null;
     }
-    
-    private void cambioSeleccion(ListSelectionEvent lse){
-        Item i = getSelectedItem();
-        btnEliminar.setEnabled(i != null);
-        btnEditar.setEnabled(i != null);
-    }
+//    
+//    private void cambioSeleccion(ListSelectionEvent lse){
+//        Item i = getSelectedItem();
+//        btnEliminar.setEnabled(i != null);
+//        btnEditar.setEnabled(i != null);
+//    }
     
 }

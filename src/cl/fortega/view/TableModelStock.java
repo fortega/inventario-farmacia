@@ -35,11 +35,11 @@ public class TableModelStock implements TableModel {
     public String getColumnName(int i) {
         switch(i){
             case 0:
-                return "ID";
+                return "Item";
             case 1:
-                return "Nombre";
+                return "Caja";
             case 2:
-                return "Cantidad";
+                return "Stock";
             default:
                 return null;
         }
@@ -49,9 +49,9 @@ public class TableModelStock implements TableModel {
     public Class<?> getColumnClass(int i) {
         switch(i){
             case 0:
-                return int.class;
-            case 1:
                 return String.class;
+            case 1:
+                return int.class;
             case 2:
                 return long.class;
             default:
@@ -72,11 +72,11 @@ public class TableModelStock implements TableModel {
     public Object getValueAt(int row, int col) {
         switch(col){
             case 0:
-                return stock.get(row).getId();
+                return stock.get(row).getItemNombre();
             case 1:
-                return stock.get(row).getNombre();
+                return stock.get(row).getCajaCantidad();
             case 2:
-                return stock.get(row).getCantidad();
+                return stock.get(row).getStock();
             default:
                 return null;
         }

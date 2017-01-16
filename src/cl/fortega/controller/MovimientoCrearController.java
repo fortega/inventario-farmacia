@@ -17,11 +17,9 @@ import javax.swing.JOptionPane;
  * @author felipe
  */
 public class MovimientoCrearController {
-    public static boolean btnCrear_click(Dialog owner, boolean ingreso, int cajaId, String txtCantidad){
+    public static boolean btnCrear_click(Dialog owner, int cajaId, String txtCantidad){
         if(txtCantidad.matches("^[0-9]{1,9}$")){
             int cantidad = Integer.parseInt(txtCantidad);
-            if(!ingreso)
-                cantidad *= -1;
             
             DB db = new DB();
             Caja caja = db.getCaja(cajaId);

@@ -5,6 +5,7 @@
  */
 package cl.fortega.model;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,63 +21,98 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author felipe
  */
+//itemId,itemNombre,cajaId,cajaCantidad, stock
 @Entity
 @Table(name = "STOCK")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s")})
-public class Stock {
+    @NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s ORDER BY s.itemNombre, s.cajaCantidad")
+    , @NamedQuery(name = "Stock.findStock", query = "SELECT s FROM Stock s WHERE s.stock > 0 ORDER BY s.itemNombre,s.cajaCantidad")})
+public class Stock implements Serializable{
+    @Basic(optional = false)
+    @Column(name = "ITEMID")
+    private int itemId;
+    @Basic(optional = false)
+    @Column(name = "ITEMNOMBRE")
+    private String itemNombre;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private int id;
+    @Column(name = "CAJAID")
+    private int cajaId;
     @Basic(optional = false)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "CAJACANTIDAD")
+    private String cajaCantidad;
     @Basic(optional = true)
-    @Column(name = "CANTIDAD")
-    private long cantidad;
+    @Column(name = "STOCK")
+    private long stock;
 
     /**
-     * @return the id
+     * @return the itemId
      */
-    public int getId() {
-        return id;
+    public int getItemId() {
+        return itemId;
     }
 
     /**
-     * @param id the id to set
+     * @param itemId the itemId to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     /**
-     * @return the nombre
+     * @return the itemNombre
      */
-    public String getNombre() {
-        return nombre;
+    public String getItemNombre() {
+        return itemNombre;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param itemNombre the itemNombre to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setItemNombre(String itemNombre) {
+        this.itemNombre = itemNombre;
     }
 
     /**
-     * @return the cantidad
+     * @return the cajaId
      */
-    public long getCantidad() {
-        return cantidad;
+    public int getCajaId() {
+        return cajaId;
     }
 
     /**
-     * @param cantidad the cantidad to set
+     * @param cajaId the cajaId to set
      */
-    public void setCantidad(long cantidad) {
-        this.cantidad = cantidad;
+    public void setCajaId(int cajaId) {
+        this.cajaId = cajaId;
+    }
+
+    /**
+     * @return the cajaCantidad
+     */
+    public String getCajaCantidad() {
+        return cajaCantidad;
+    }
+
+    /**
+     * @param cajaCantidad the cajaCantidad to set
+     */
+    public void setCajaCantidad(String cajaCantidad) {
+        this.cajaCantidad = cajaCantidad;
+    }
+
+    /**
+     * @return the stock
+     */
+    public long getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(long stock) {
+        this.stock = stock;
     }
 }

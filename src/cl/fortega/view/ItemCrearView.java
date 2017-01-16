@@ -52,7 +52,7 @@ public class ItemCrearView extends BaseView {
         tblCajas = new JTable();
         panelCajasMain.add(tblCajas, BorderLayout.CENTER);
         
-        JLabel lblCajas  = new JLabel("Cajas:");
+        JLabel lblCajas  = new JLabel("Formato Cajas:");
         panelCajasMain.add(lblCajas, BorderLayout.PAGE_START);
         
         JPanel panelCajasBotones = new JPanel(new FlowLayout());
@@ -68,16 +68,8 @@ public class ItemCrearView extends BaseView {
         panelCajasMain.add(panelCajasBotones, BorderLayout.PAGE_END);
         add(panelCajasMain, BorderLayout.CENTER);
         
-        if(id == -1){
-            setTitle("Crear Item");
-            agregaCaja(1);
-        }else{
-            setTitle("Edita Item");
-            
-            DB db = new DB();
-            i = db.getItem(id);
-            txtNombre.setText(i.getNombre());
-        }
+        setTitle("Crear Item");
+        agregaCaja(1);
         
         add(panel, BorderLayout.PAGE_START);
         

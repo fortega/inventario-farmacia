@@ -15,10 +15,10 @@ import java.awt.event.ActionEvent;
  * @author felipe
  */
 public class StockController {
-    public static void btnDetalle_click(Dialog owner, ActionEvent ae, int itemId){
+    public static void btnDetalle_click(Dialog owner, ActionEvent ae, int cajaId){
         DB db = new DB();
         
-        MovimientoView form = new MovimientoView(owner, db.getMovimientos(itemId));
+        MovimientoView form = new MovimientoView(owner, db.getMovimientosCaja(cajaId));
         form.setVisible(true);
     }
 }

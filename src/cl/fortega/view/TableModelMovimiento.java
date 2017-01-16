@@ -7,7 +7,6 @@ package cl.fortega.view;
 
 import cl.fortega.model.Movimiento;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
@@ -33,7 +32,7 @@ public class TableModelMovimiento implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override

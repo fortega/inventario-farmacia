@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,20 +25,18 @@ import javax.swing.JTextField;
  *
  * @author felipe
  */
-public class MovimientoCrearView extends BaseView {
-    boolean ingreso;
+public class MovimientoIngresoView extends BaseView {
     JComboBox cbItems, cbCajas;
     JButton btnCrear;
     JTextField txtCantidad;
     JLabel lblCantidad, lblItem, lblCaja;
     
     
-    public MovimientoCrearView(Frame owner, boolean ingreso) {
+    public MovimientoIngresoView(Frame owner) {
         super(owner);
         
-        setTitle((ingreso ? "Ingreso" : "salida") + " mercaderia");
+        setTitle("Ingreso mercaderia");
         
-        this.ingreso = ingreso;
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         
         JPanel panel;
@@ -67,9 +66,9 @@ public class MovimientoCrearView extends BaseView {
         panel.add(txtCantidad);
         add(panel);
         
-        btnCrear = new JButton(ingreso ? "Ingreso" : "Salida");
+        btnCrear = new JButton("Ingreso");
         btnCrear.addActionListener(ae -> {
-            if(MovimientoCrearController.btnCrear_click(this, ingreso,
+            if(MovimientoCrearController.btnCrear_click(this,
                     getSelectedCaja().getId() , txtCantidad.getText()))
                 setVisible(false);
         });
@@ -90,14 +89,21 @@ public class MovimientoCrearView extends BaseView {
     private void setItems(){
         DB db = new DB();
         List<Item> items = db.getItemAll();
+        if(items.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Con hay items creados. Favor crear primero", "No items", JOptionPane.ERROR_MESSAGE);
+            btnCrear.setEnabled(false);
+            return;
+        }
         cbItems.setModel(new ComboBoxModelBase<Item>(items));
     }
     
     private void setCajas(){
         Item item = getSelectedItem();
-        DB db = new DB();
-        List<Caja> cajas = db.getCajaItemId(item.getId());
-        cbCajas.setModel(new ComboBoxModelBase<Caja>(cajas));
+        if(item != null){
+            DB db = new DB();
+            List<Caja> cajas = db.getCajaItemId(item.getId());
+            cbCajas.setModel(new ComboBoxModelBase<Caja>(cajas));
+        }
     }
     
 }

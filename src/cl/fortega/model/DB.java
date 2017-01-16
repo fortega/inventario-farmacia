@@ -152,9 +152,9 @@ public class DB {
         }
     }
     
-    public List<Movimiento> getMovimientos(int itemId){
-        Query query = em.createNamedQuery("Movimiento.findByItem");
-        query.setParameter("id", itemId);
+    public List<Movimiento> getMovimientosCaja(int cajaId){
+        Query query = em.createNamedQuery("Movimiento.findByCaja");
+        query.setParameter("id", cajaId);
         
         return query.getResultList();
     }
@@ -168,6 +168,12 @@ public class DB {
     
     public List<Stock> getStockAll(){
         Query query = em.createNamedQuery("Stock.findAll");
+        
+        return query.getResultList();
+    }
+    
+    public List<Stock> getStockConStock(){
+        Query query = em.createNamedQuery("Stock.findStock");
         
         return query.getResultList();
     }

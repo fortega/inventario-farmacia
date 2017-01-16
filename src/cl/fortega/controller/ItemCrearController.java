@@ -52,10 +52,9 @@ public class ItemCrearController {
         }
         
         if(!resultado)
-            JOptionPane.showConfirmDialog(null,
+            JOptionPane.showMessageDialog(null,
                     "Revise que nombre no este duplicado",
                     "No se pudo crear item",
-                    JOptionPane.OK_OPTION,
                     JOptionPane.ERROR_MESSAGE);
         return resultado;
     }
@@ -77,7 +76,7 @@ public class ItemCrearController {
                     ItemCrearView icv = (ItemCrearView)owner;
                     icv.agregaCaja(cantidad);
                 }else{
-                    JOptionPane.showConfirmDialog(owner, "No se puede crear 2 cajas con la misma cantidad", "Cantidad Invalida", itemId);
+                    JOptionPane.showMessageDialog(owner, "No se puede crear 2 cajas con la misma cantidad", "Cantidad Invalida", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }else{
@@ -87,9 +86,8 @@ public class ItemCrearController {
                 
             return true;
         }
-        JOptionPane.showConfirmDialog(owner,
-                "No es una cantidad valida: " + resultado, "Cantidad Invalida",
-                JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(owner,
+                "No es una cantidad valida: " + resultado, "Cantidad Invalida", JOptionPane.ERROR_MESSAGE);
         return false;
     }
     
@@ -103,9 +101,9 @@ public class ItemCrearController {
                 DB db = new DB();
                 Caja caja = db.getCajaItemCantidad(itemId, cantidad);
                 if(!db.deleteCaja(caja)){
-                    JOptionPane.showConfirmDialog(owner, 
+                    JOptionPane.showMessageDialog(owner, 
                             "Verifique que no tenga movimientos asociados", "No se pudo crear caja",
-                            JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }

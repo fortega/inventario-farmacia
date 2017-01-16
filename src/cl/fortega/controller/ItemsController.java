@@ -44,9 +44,8 @@ public class ItemsController {
             boolean resultado = db.deleteItem(i);
             
             if(!resultado){
-                JOptionPane.showConfirmDialog(owner,
-                        "Confirme que no tenga movimientos asociados", "No se pudo eliminar Item",
-                        JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(owner,
+                        "Confirme que no tenga movimientos asociados", "No se pudo eliminar Item", JOptionPane.ERROR_MESSAGE);
             }
             updateTabla(owner);   
         }

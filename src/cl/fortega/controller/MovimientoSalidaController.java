@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class MovimientoSalidaController {
     public static boolean btnSalida_click(Dialog owner, int cajaId, long stock, String txtCantidad){
-        if(!txtCantidad.matches("[0-9]{0,9}")){
+        if(!txtCantidad.matches("^[0-9]{1,9}$")){
             JOptionPane.showMessageDialog(owner, "No es un cantidad valida: " + txtCantidad, "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

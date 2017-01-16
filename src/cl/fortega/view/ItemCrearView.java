@@ -68,8 +68,16 @@ public class ItemCrearView extends BaseView {
         panelCajasMain.add(panelCajasBotones, BorderLayout.PAGE_END);
         add(panelCajasMain, BorderLayout.CENTER);
         
-        setTitle("Crear Item");
-        agregaCaja(1);
+        if(id == -1){
+            setTitle("Crear Item");
+            agregaCaja(1);
+        }else{
+            setTitle("Edita Item");
+            
+            DB db = new DB();
+            i = db.getItem(id);
+            txtNombre.setText(i.getNombre());
+        }
         
         add(panel, BorderLayout.PAGE_START);
         

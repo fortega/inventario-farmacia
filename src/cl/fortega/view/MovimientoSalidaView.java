@@ -78,8 +78,8 @@ public class MovimientoSalidaView extends BaseView {
             btnSalida.setEnabled(false);
             return;
         }
-        
         tabla.setModel(new TableModelStock(stock));
+        tabla.setRowSelectionInterval(0, 0);
     }
     
 }
